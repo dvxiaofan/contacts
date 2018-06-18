@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 
-class ListContacts extends Component {
-  render() {
-    return (
-      <ol className='contact-list'>
-				{this.props.contacts.map((contact) => (
+function ListContacts(props) {
+	return (
+		<ol className='contact-list'>
+				{props.contacts.map((contact) => (
 					// Each child in an array or iterator should have a unique "key" prop.
 					<li key={contact.id} className='contact-list-item'>
 						<div className='contact-avatar' style={{
@@ -18,8 +17,7 @@ class ListContacts extends Component {
 					</li>
 				))}
       </ol>
-    )
-  }
+	)
 }
 
 export default ListContacts
