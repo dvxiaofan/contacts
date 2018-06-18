@@ -7,7 +7,7 @@ if (!token) {
 }
 
 const headers = {
-	'Accept': 'application/json',
+  'Accept': 'application/json',
   'Authorization': token
 }
 
