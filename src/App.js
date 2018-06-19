@@ -1,28 +1,18 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts';
+import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
   state = {
-    contacts: [
-      {
-        "id": "ryan",
-        "name": "Ryan Florence",
-        "email": "ryan@reacttraining.com",
-        "avatarURL": "http://localhost:5001/ryan.jpg"
-      },
-      {
-        "id": "michael",
-        "name": "Michael Jackson",
-        "email": "michael@reacttraining.com",
-        "avatarURL": "http://localhost:5001/michael.jpg"
-      },
-      {
-        "id": "tyler",
-        "name": "Tyler McGinnis",
-        "email": "tyler@reacttraining.com",
-        "avatarURL": "http://localhost:5001/tyler.jpg"
-      }
-    ]
+    contacts: []
+  }
+
+  // 在DOM插入之后立即调用此方法获取数据
+  componentDidMount() {
+    ContactsAPI.getAll().then((contacts) => {
+      // 键值相同， 直接简写
+      this.setState({ contacts });
+    })    
   }
 
   // 删除联系人方法

@@ -57,7 +57,7 @@ class ListContacts extends Component {
 						/>
 				</div>
 
-				// 搜索时的显示信息
+				{/* 搜索时的显示信息 */}
 				{showingContacts.length !== contacts.length && (
 					<div className='showing-contacts'>
 						<span>Now Showing {showingContacts.length} of {contacts.length} total</span>
