@@ -21,16 +21,19 @@ class ListContacts extends Component {
 
 	render() {
 
+		const { contacts, onDeleteContact } = this.props;
+		const { query } = this.state;
+
 		// 创建要显示的数据
 		let showingContacts;
-		if (this.state.query) {
+		if (query) {
 			// 搜索框有内容的时候，用正则表达式匹配符合要求的数据
-			const match = new RegExp(escapeRegExp(this.state.query), 'i');
+			const match = new RegExp(escapeRegExp(query), 'i');
 			// 筛选数据
-			showingContacts = this.props.contacts.filter((contact) => match.test(contact.name));
+			showingContacts = contacts.filter((contact) => match.test(contact.name));
 		} else {
 			// 搜索框无内容， 显示原始数据
-			showingContacts = this.props.contacts;
+			showingContacts = contacts;
 		}
 
 		// 按名字首字母排序
@@ -43,7 +46,7 @@ class ListContacts extends Component {
 						className='search-contacts' 
 						type='text' 
 						placeholder='Search contacts'
-						value={this.state.query}
+						value={query}
 						// 事件监听器在每个 onChange 事件上触发 updateQuery() 函数
 						onChange={(event) => this.updatedQuery(event.target.value)}
 						/>
@@ -59,7 +62,7 @@ class ListContacts extends Component {
 								<p>{contact.name}</p>
 								<p>{contact.email}</p>
 							</div>
-							<button onClick={() => this.props.onDeleteContact(contact)} className='contact-remove'></button>
+							<button onClick={() => onDeleteContact(contact)} className='contact-remove'></button>
 						</li>
 					))}
 				</ol>
