@@ -25,9 +25,18 @@ class App extends Component {
     ]
   }
 
+  // 删除联系人方法
+  removeContact = (contact) => {
+    // 调用 setState并传入当前state更新状态
+    this.setState((state) => ({
+      // 利用filter 过滤掉点击的contact， 把剩余的重新返回一个数组
+      contacts: state.contacts.filter((c) => c.id !== contact.id)
+    }))
+  }
+
   render() {
     return <div>
-      <ListContacts contacts={this.state.contacts}/>
+      <ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts}/>
     </div>
   }
 }
