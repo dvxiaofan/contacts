@@ -22,6 +22,9 @@ class App extends Component {
       // 利用filter 过滤掉点击的contact， 把剩余的重新返回一个数组
       contacts: state.contacts.filter((c) => c.id !== contact.id)
     }))
+
+    // 删除服务器数据
+    ContactsAPI.remove(contact);
   }
 
   render() {
