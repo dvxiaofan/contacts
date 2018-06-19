@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 class ListContacts extends Component {
 	// 利用proptypes 指定props 的类型和是否为必须
@@ -18,9 +20,24 @@ class ListContacts extends Component {
 	}
 
 	render() {
+
+		// 创建要显示的数据
+		let showingContacts;
+		if (this.state.query) {
+			// 搜索框有内容的时候，用正则表达式匹配符合要求的数据
+			const match = new RegExp(escapeRegExp(this.state.query), 'i');
+			// 筛选数据
+			showingContacts = this.props.contacts.filter((contact) => match.test(contact.name));
+		} else {
+			// 搜索框无内容， 显示原始数据
+			showingContacts = this.props.contacts;
+		}
+
+		// 按名字首字母排序
+		showingContacts.sort(sortBy('name'));
+
 		return (
 			<div className='list-contacts'>
-				{JSON.stringify(this.state)}
 				<div className='list-contacts-top'>
 					<input 
 						className='search-contacts' 
@@ -32,7 +49,7 @@ class ListContacts extends Component {
 						/>
 				</div>
 				<ol className='contact-list'>
-					{this.props.contacts.map((contact) => (
+					{showingContacts.map((contact) => (
 						// Each child in an array or iterator should have a unique "key" prop.
 						<li key={contact.id} className='contact-list-item'>
 							<div className='contact-avatar' style={{
