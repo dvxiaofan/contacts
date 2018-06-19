@@ -16,11 +16,16 @@ class ListContacts extends Component {
 
 	updatedQuery = (query) => {
 		// 调用 setState()，合并新状态以更新组件的内部状态
-		this.setState({ query: query.trim() })
+		this.setState({ query: query.trim() });
+	}
+
+	// 清除搜索框内容
+	clearQuery = () => {
+		this.setState({ query: '' });
 	}
 
 	render() {
-
+		// 对象结构
 		const { contacts, onDeleteContact } = this.props;
 		const { query } = this.state;
 
@@ -51,6 +56,15 @@ class ListContacts extends Component {
 						onChange={(event) => this.updatedQuery(event.target.value)}
 						/>
 				</div>
+
+				// 搜索时的显示信息
+				{showingContacts.length !== contacts.length && (
+					<div className='showing-contacts'>
+						<span>Now Showing {showingContacts.length} of {contacts.length} total</span>
+						<button onClick={this.clearQuery}>Show All</button>
+					</div>
+				)}
+
 				<ol className='contact-list'>
 					{showingContacts.map((contact) => (
 						// Each child in an array or iterator should have a unique "key" prop.
