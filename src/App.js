@@ -31,6 +31,17 @@ class App extends Component {
     ContactsAPI.remove(contact);
   }
 
+  // 创建联系人
+  createContact(contact) {
+    ContactsAPI.create(contact).then(contact => {
+      this.setState(state => ({
+        // 调用数组的 concat() 方法将新的concact 拼接到原数据上
+        contacts: state.contacts.concat([ contact ]) 
+      }))
+    })
+
+  }
+
   render() {
     return (
       <div className='app'>
@@ -43,7 +54,16 @@ class App extends Component {
           />
         )}/>
         {/* 新建联系人界面 */}
-        <Route path='/create' component={CreateContact}/>
+        <Route path='/create' render={({ history }) => (
+          <CreateContact
+            onCreateContact={(contact) => {
+              // 创建联系人
+              this.createContact(contact)
+              // 返回列表页
+              history.push('/')
+            }}
+          />
+        )}/>
       </div>
     )
   }
