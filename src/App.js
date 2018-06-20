@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import ListContacts from './ListContacts';
 import CreateContact from './CreateContact';
 import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
   state = {
-    screen: 'list', // list ,  create
     contacts: []
   }
 
@@ -33,21 +33,17 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.screen === 'list' && (
+      <div className='app'>
+      {/* exact 绝对匹配 */}
+        <Route exact path='/' render={() => (
           <ListContacts 
             // 传递出去的属性和方法
             onDeleteContact={this.removeContact} 
             contacts={this.state.contacts}
-            onNavigate={() => {
-              this.setState({ screen: 'create' });
-            }}
           />
-        )}
-        {this.state.screen === 'create' && (
-          // 新建联系人界面
-          <CreateContact/>
-        )}
+        )}/>
+        {/* 新建联系人界面 */}
+        <Route path='/create' component={CreateContact}/>
       </div>
     )
   }

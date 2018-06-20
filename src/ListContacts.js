@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
@@ -56,11 +57,10 @@ class ListContacts extends Component {
 						onChange={(event) => this.updatedQuery(event.target.value)}
 					/>
 					{/* 添加联系人按钮 */}
-					<a 
-						herf='#create'
+					<Link 
+						to='/create'
 						className='add-contact'
-						onClick={this.props.onNavigate}	
-					>Add Contact</a>						
+					>Add Contact</Link>						
 				</div>
 
 				{/* 搜索时的显示信息 */}
