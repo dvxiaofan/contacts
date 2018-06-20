@@ -22,7 +22,9 @@ class App extends Component {
     // 调用 setState并传入当前state更新状态
     this.setState((state) => ({
       // 利用filter 过滤掉点击的contact， 把剩余的重新返回一个数组
-      contacts: state.contacts.filter((c) => c.id !== contact.id)
+      contacts: state.contacts.filter(
+        c => c.id !== contact.id
+      )
     }))
 
     // 删除服务器数据
@@ -34,8 +36,12 @@ class App extends Component {
       <div>
         {this.state.screen === 'list' && (
           <ListContacts 
+            // 传递出去的属性和方法
             onDeleteContact={this.removeContact} 
             contacts={this.state.contacts}
+            onNavigate={() => {
+              this.setState({ screen: 'create' });
+            }}
           />
         )}
         {this.state.screen === 'create' && (

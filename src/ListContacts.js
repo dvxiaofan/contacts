@@ -54,7 +54,13 @@ class ListContacts extends Component {
 						value={query}
 						// 事件监听器在每个 onChange 事件上触发 updateQuery() 函数
 						onChange={(event) => this.updatedQuery(event.target.value)}
-						/>
+					/>
+					{/* 添加联系人按钮 */}
+					<a 
+						herf='#create'
+						className='add-contact'
+						onClick={this.props.onNavigate}	
+					>Add Contact</a>						
 				</div>
 
 				{/* 搜索时的显示信息 */}
